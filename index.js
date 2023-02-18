@@ -21,10 +21,18 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     const fresherJobCollection = client.db("onliKaj").collection("fresherJob");
+    const experiencedJobCollection = client
+      .db("onliKaj")
+      .collection("experiencedJob");
 
     app.get("/fresher", async (req, res) => {
       const query = {};
       const jobs = await fresherJobCollection.find(query).toArray();
+      res.send(jobs);
+    });
+    app.get("/experienced", async (req, res) => {
+      const query = {};
+      const jobs = await experiencedJobCollection.find(query).toArray();
       res.send(jobs);
     });
   } catch (data) {
